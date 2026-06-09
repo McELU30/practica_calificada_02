@@ -1,0 +1,51 @@
+<div class="page-header mb-4">
+    <div class="page-badge"><i class="bi {{ badge_icon }}"></i> {{ titulo }}</div>
+    <h1 class="page-title">{{ titulo }}</h1>
+    <p class="text-muted">{{ subtitulo }}</p>
+</div>
+<div class="row g-4">
+    <div class="col-12">
+        <div class="card-surface">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4 flex-wrap gap-3">
+                    <div>
+                        <h2 class="h4 mb-1 text-white">Registros en base de datos</h2>
+                        <p class="text-muted mb-0">Datos obtenidos desde SQLite en tiempo real.</p>
+                    </div>
+                    <a href="{% url 'users:dashboard' %}" class="btn btn-outline-light action-button">
+                        <i class="bi bi-arrow-left-circle me-2"></i>Volver al panel
+                    </a>
+                </div>
+                <div class="d-flex align-items-center justify-content-between gap-3 mb-4 flex-wrap">
+                    <div class="info-pill"><i class="bi {{ badge_icon }}"></i> {{ total }} registro{{ total|pluralize }}</div>
+                    <input type="text" id="{{ search_id }}" oninput="filterTable('{{ search_id }}','{{ table_id }}')"
+                           class="form-control search-control" placeholder="Buscar...">
+                </div>
+                {% if filas %}
+                <div class="table-responsive">
+                    <table class="table table-borderless align-middle mb-0" id="{{ table_id }}">
+                        <thead>
+                            <tr>
+                                {% for col in columnas %}
+                                <th>{{ col }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fila in filas %}
+                            <tr>
+                                {% for celda in fila %}
+                                <td>{{ celda }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <p class="text-muted">No hay registros. Ejecute <code>python manage.py load_demo_data</code> o agregue datos en <a href="/admin/" class="text-info">/admin/</a>.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

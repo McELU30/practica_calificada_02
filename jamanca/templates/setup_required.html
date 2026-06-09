@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Configuración requerida{% endblock %}
+{% block content %}
+<div class="card-surface p-4">
+    <h1 class="page-title">Base de datos sin configurar</h1>
+    <p class="text-muted mb-4">Faltan las tablas <code>users_persona</code>, <code>users_rol</code>, etc.</p>
+    <div class="alert alert-warning">
+        <strong>Solución:</strong> cierre el servidor (Ctrl+C) y en PowerShell:
+        <pre class="mt-2 mb-0 text-white">cd jamanca
+..\venv\Scripts\activate
+python manage.py setup_proyecto
+python manage.py runserver</pre>
+    </div>
+    <a href="{% url 'users:dashboard' %}" class="btn btn-outline-light action-button mt-3">← Volver al panel</a>
+</div>
+{% endblock %}
